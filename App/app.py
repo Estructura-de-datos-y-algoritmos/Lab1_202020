@@ -72,7 +72,7 @@ def printMenu():
     print("2- Contar los elementos de la Lista")
     print("3- Contar elementos filtrados por palabra clave")
     print("4- Consultar elementos a partir de dos listas")
-    print("0- Salir")
+    print("0- Salir.")
 
 def countElementsFilteredByColumn(criteria, column, lst):
     """
