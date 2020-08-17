@@ -62,6 +62,7 @@ def loadCSVFile (file, lst, sep=";"):
     
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
+    return lst
 
 def printMenu():
     """
@@ -107,12 +108,18 @@ def countElementsByCriteria(criteria, column, lst):
     """
     counter=0
     suma=0
+    lista1=[]
 
-    for element in lst:
-        if criteria.lower in element[column]:
-            if element[18]>=6:
-                counter+=1
-                suma+=element[18]
+    lista_casting= loadCSVFile("Data/MoviesCastingRaw-small.csv", lista1)
+
+    for element in lista_casting:
+        if criteria.lower() == element["director_name"]:
+            for elemento in lst:
+                if elemento[0]==element[0]:
+                    if elemento[18]>=6:
+                        counter+=1
+                        suma+=element[18]
+
     promedio=suma/counter
     lista=[counter, promedio]
     return lista 
