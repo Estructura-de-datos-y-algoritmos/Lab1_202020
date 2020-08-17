@@ -107,15 +107,19 @@ def countElementsByCriteria(criteria, column, lst):
     """
     lista2 = []
     promedio = []
+    cuantas = 0
 
     loadCSVFile("Data/AllMoviesCastingRaw.csv", lista2)
     for element in lista2:
-            if criteria.lower() in element[column].lower():
-                id1 = element["id"]
-                for elem in lst:
-                    if elem["\ufeffid"] == id1:
-                        if float(elem["vote_average"]) >= 6:
-                            promedio.append(float(elem["vote_average"]))
+        #print("entra")
+        if criteria.lower() in element[column].lower():
+            id1 = element["id"]
+           # print("id--- ", id1)
+            cuantas += 1
+            for elem in lst:
+                if elem["\ufeffid"] == id1:
+                    if float(elem["vote_average"]) >= 6:
+                        promedio.append(float(elem["vote_average"]))
     return promedio
 
 
