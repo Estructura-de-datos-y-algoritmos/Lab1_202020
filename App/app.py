@@ -105,8 +105,8 @@ def countElementsFilteredByColumn(criteria, column, lst):
         t1_stop = process_time() #tiempo final
         print("Tiempo de ejecución ",t1_stop-t1_start," segundos")
     return counter
-def countElementsByCriteria1(criteria, column)-> None:
-      lista2 = []
+def countElementsByCriteria1(criteria, column, lst)-> None:
+    lista2 = []
     promedio = []
 
     loadCSVFile("Data/AllMoviesCastingRaw.csv", lista2)
@@ -118,7 +118,7 @@ def countElementsByCriteria1(criteria, column)-> None:
                         if float(elem["vote_average"]) >= 6:
                             promedio.append(float(elem["vote_average"]))
     return promedio
-def countElementsByCriteria2(criteria, column)-> None:
+def countElementsByCriteria2(criteria, column, lst)-> None:
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
@@ -193,21 +193,18 @@ def main():
 
                 counter=countElementsFilteredByColumn(criteria, "production_countries", lista) #filtrar una columna por criterio  
                 print("Coinciden ",counter," elementos con el crtierio: ", criteria  )
-            elif int(inputs[0])==4: #opcion 4
+            elif int(inputs[0])==4: #opcion 4, Funcion creada por compañero
                 criteria =input('Ingrese el criterio de búsqueda\n')
-                counter=countElementsByCriteria1(criteria,"director_name")
+                counter=countElementsByCriteria1(criteria,"director_name",lista)
                 print("Se encontaron ",len(counter)," Peliculas buenas para el director: ", criteria)
                 print("promedio de evaluación de las peliculas del director ", criteria, " es: ", sum(counter)/len(counter))
 
-                 
-           
-            elif int(inputs[0])==5: #opcion 4
+            elif int(inputs[0])==5: #opcion 5, Funcion creada por compañero
                 criteria =input('Ingrese el criterio de búsqueda\n')
                 counter=countElementsByCriteria2(criteria,0,lista)
                 print("Coinciden ",counter[0]," elementos con el crtierio: '", criteria ,"' promedio de votacion:", counter[1])
-
-               
-            elif int(inputs[0])==6: #opcion 4
+ 
+            elif int(inputs[0])==6: #opcion 6, Funcion creada por compañero
                 criteria =input('Ingrese el criterio de búsqueda\n')
                 counter=countElementsByCriteria3(criteria)
 
