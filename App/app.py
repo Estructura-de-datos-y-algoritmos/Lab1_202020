@@ -105,6 +105,21 @@ def countElementsByCriteria(criteria)-> None:
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
+
+    counter=0
+    suma=0
+
+    for element in lst:
+        if criteria.lower in element[column]:
+            if element[18]>=6:
+                counter+=1
+                suma+=element[18]
+    promedio=suma/counter
+    lista=[counter, promedio]
+    return lista 
+
+
+
     lista=[] #Lista vacia en donde vamos a tener en memoria nuestra lista del primer archivo
     dicc_identificadores=[] #Aqui agregaremos los indicadores de las peliculas con el autor especificado (criteria)
     loadCSVFile("Data/AllMoviesCastingRaw.csv", lista)
@@ -149,7 +164,10 @@ def main():
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
         if len(inputs)>0:
             if int(inputs[0])==1: #opcion 1
+                loadCSVFile("Data/SmallMoviesDetailsCleaned.csv", lista) #llamar funcion cargar datos
+
                 loadCSVFile("Data/AllMoviesDetailsCleaned.csv", lista) #llamar funcion cargar datos
+
                 print("Datos cargados, "+str(len(lista))+" elementos cargados")
             elif int(inputs[0])==2: #opcion 2
                 if len(lista)==0: #obtener la longitud de la lista
@@ -157,6 +175,13 @@ def main():
                 else: Duracion_conteo_de_elementos(lista)
             elif int(inputs[0])==3: #opcion 3
                 criteria =input('Ingrese el criterio de búsqueda\n')
+                counter=countElementsFilteredByColumn(criteria, "id", lista) #filtrar una columna por criterio  
+                print("Coinciden ",counter," elementos con el crtierio: ", criteria  )
+            elif int(inputs[0])==4: #opcion 4
+                criteria =input('Ingrese el criterio de búsqueda\n')
+                counter=countElementsByCriteria(criteria,0,lista)
+                print("Coinciden ",counter[0]," elementos con el crtierio: '", criteria ,"' promedio de votacion:", counter[1])
+
                 counter=countElementsFilteredByColumn(criteria, "budget", lista) #filtrar una columna por criterio  
                 print("Coinciden ",counter," elementos con el crtierio: ", criteria  )
             elif int(inputs[0])==4: #opcion 4
