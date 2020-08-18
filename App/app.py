@@ -117,7 +117,6 @@ def countElementsByCriteria1(criteria, column, lst)-> None:
                     if elem["\ufeffid"] == id1:
                         if float(elem["vote_average"]) >= 6:
                             promedio.append(float(elem["vote_average"]))
-    print(promedio)
     return promedio
    
 def countElementsByCriteria2(criteria, lst):
