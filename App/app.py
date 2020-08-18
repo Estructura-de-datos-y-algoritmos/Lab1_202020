@@ -117,20 +117,21 @@ def countElementsByCriteria1(criteria, column, lst)-> None:
                     if elem["\ufeffid"] == id1:
                         if float(elem["vote_average"]) >= 6:
                             promedio.append(float(elem["vote_average"]))
+    print(promedio)
     return promedio
    
-def countElementsByCriteria2(criteria, column, lst):
+def countElementsByCriteria2(criteria, lst):
     """
-    Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
+    Retorna la cantidad de elementos que cumplen con un criterio 
     """
     counter=0
     suma=0
     lista1=[]
 
 
-    lista_casting= loadCSVFile("Data/MoviesCastingRaw-small.csv", lista1)
+    loadCSVFile("Data/MoviesCastingRaw-small.csv", lista1)
 
-    for element in lista_casting:
+    for element in lista1:
         if criteria.lower() in element["director_name"]:
             for elemento in lst:
                 if elemento[0]==element[0]:
@@ -145,23 +146,30 @@ def countElementsByCriteria2(criteria, column, lst):
 
 def countElementsByCriteria3(criteria)-> None:
     lista=[] #Lista vacia en donde vamos a tener en memoria nuestra lista del primer archivo
-    dicc_identificadores=[] #Aqui agregaremos los indicadores de las peliculas con el autor especificado (criteria)
+    list_identificadores=[] #Aqui agregaremos los indicadores de las peliculas con el autor especificado (criteria)
     loadCSVFile("Data/AllMoviesCastingRaw.csv", lista)
     if len(lista)==0:
         return (print('La lista esta vacia'))
     else:
         for element in lista:
             if criteria.lower()==element['director_name'].lower():
-                dicc_identificadores.append(lista.index(element))
+                list_identificadores.append(element['id'])
     lista=[] #Nueva lista vacia en donde se guardara en memoria la informacion del segundo archivo
     loadCSVFile("Data/AllMoviesDetailsCleaned.csv", lista)
     buenas=0 #numero de pelcilas buenas
     num_votos=0 #Sumatoria de numero de votos
-    for elemento in dicc_identificadores:     
-        if int(lista[elemento]['vote_count'])>=6:
-            buenas+=1
-            num_votos+=int(lista[elemento]['vote_count'])
-            promedio_votos=num_votos/buenas
+    conteo=0 #contador para revisar la lista
+    for elemento in list_identificadores: 
+        indicador=False #indicador para finalizar ciclo while
+        while indicador==False and conteo<len(lista):
+            if lista[conteo]["\ufeffid"]==elemento:
+                if int(lista[conteo]['vote_count'])>=6:
+                    buenas+=1
+                    num_votos+=int(lista[conteo]['vote_count'])
+                indicador=True
+            conteo+=1
+
+    promedio_votos=num_votos/buenas
     return print('Coinciden ',buenas,' peliculas buenas con un promedio de votacion de: ', promedio_votos)
         
     
@@ -209,12 +217,12 @@ def main():
 
             elif int(inputs[0])==5: #opcion 5, Funcion creada por compañero
                 criteria =input('Ingrese el criterio de búsqueda\n')
-                counter=countElementsByCriteria2(criteria,0,lista)
+                counter=countElementsByCriteria2(criteria,lista)
                 print("Coinciden ",counter[0]," elementos con el crtierio: '", criteria ,"' promedio de votacion:", counter[1])
  
             elif int(inputs[0])==6: #opcion 6, Funcion creada por compañero
                 criteria =input('Ingrese el criterio de búsqueda\n')
-                counter=countElementsByCriteria3(criteria)
+                countElementsByCriteria3(criteria)
 
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
