@@ -162,9 +162,9 @@ def countElementsByCriteria3(criteria)-> None:
         indicador=False #indicador para finalizar ciclo while
         while indicador==False and conteo<len(lista):
             if lista[conteo]["\ufeffid"]==elemento:
-                if int(lista[conteo]['vote_count'])>=6:
+                if float(lista[conteo]['vote_average'])>=6:
                     buenas+=1
-                    num_votos+=int(lista[conteo]['vote_count'])
+                    num_votos+=float(lista[conteo]['vote_average'])
                 indicador=True
             conteo+=1
 
