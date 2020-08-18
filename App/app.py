@@ -119,7 +119,7 @@ def countElementsByCriteria1(criteria, column, lst)-> None:
                             promedio.append(float(elem["vote_average"]))
     return promedio
    
-def countElementsByCriteria(criteria, column, lst):
+def countElementsByCriteria2(criteria, column, lst):
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
