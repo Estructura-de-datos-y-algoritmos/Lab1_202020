@@ -118,21 +118,29 @@ def countElementsByCriteria1(criteria, column, lst)-> None:
                         if float(elem["vote_average"]) >= 6:
                             promedio.append(float(elem["vote_average"]))
     return promedio
-def countElementsByCriteria2(criteria, column, lst)-> None:
+   
+def countElementsByCriteria(criteria, column, lst):
     """
     Retorna la cantidad de elementos que cumplen con un criterio para una columna dada
     """
     counter=0
     suma=0
+    lista1=[]
 
-    for element in lst:
-        if criteria.lower in element[column]:
-            if element[18]>=6:
-                counter+=1
-                suma+=element[18]
+
+    lista_casting= loadCSVFile("Data/MoviesCastingRaw-small.csv", lista1)
+
+    for element in lista_casting:
+        if criteria.lower() in element["director_name"]:
+            for elemento in lst:
+                if elemento[0]==element[0]:
+                    if elemento[18]>=6:
+                        counter+=1
+                        suma+=element[18]
+
     promedio=suma/counter
     lista=[counter, promedio]
-    return lista 
+    return lista  
 
 
 def countElementsByCriteria3(criteria)-> None:
